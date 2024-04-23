@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Kazdoy</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <div class="navik-main container">
+      <div class="navik">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+          <div class="container">
+            <a class="navbar-brand" href="{% url 'main_page' %}">
+              <h3 style="color: rgb(0, 244, 253); font-weight: 300;">Kazdoy</h3>
+            </a>
+            <button style="background-color: rgba(175, 38, 38, 0.752);" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <i class='bx bx-menu'></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="{% url 'main_page' %}" style="color: rgb(69, 227, 255);">Главная</a>
+                </li>
+                {% if user.is_authenticated %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'cart_view' %}" style="color: rgba(0, 255, 247, 0.779);">Корзина</a>
+                  </li>
+                {% else %}
+                <span></span>
+                {% endif %}
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: rgb(32, 251, 255);">
+                     Профиль {{ user.first_name }}
+                  </a>
+                  <ul class="dropdown-menu">
+                    {% if user.is_authenticated %}
+                    <li>
+                      <a class="dropdown-item" aria-current="page"href="{% url 'account' %}" style="color: rgb(67, 210, 254);">Профиль</a>
+                    </li>  
+                    <li><a class="dropdown-item" href="{% url 'logout' %}" style="color: rgb(50, 187, 251);">Выйти</a></li>
+                    {% else %}
+                    <li>
+                      <a class="dropdown-item" aria-current="page" href="{% url 'login' %}" style="color: rgb(50, 187, 251);">Войдите</a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" aria-current="page" href="{% url 'register' %}" style="color: rgb(50, 187, 251);">Регистрация</a>
+                    </li>
+                    {% endif %}
+                  </ul>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+
+    <div class="container">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+</body>
+</html>

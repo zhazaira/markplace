@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="border-1">
+        <br>
+        <a class="a-search-back" href="{% url 'main_page' %}"><i class='bx bx-left-arrow-alt' ></i> Назад</a>
+        <br>
+        <h1>Результаты поиска</h1>
+        <br>
+        <p>Результаты по запросу: "{{ query }}"</p>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+        {% if results %}
+            {% for product in results %}
+                <div class="col" style="margin-top: 20px;">
+                    <div class="card">
+                        <br>
+                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}" style="width: 200px; height: 200px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <br>
+                            <p>Цена: <strong>{{ product.price }}</strong> KZT</p>
+                            <br>
+                            <a class="btn btn-dark" href="{% url 'add_to_cart' product.id %}">
+                                <i class='bx bx-cart'></i>
+                            </a>
+                            <a href="{% url 'product_detail' product.id %}" class="btn btn-warning" target="_blank">Подробнее</a>
+                            <a href="{% url 'add_to_favorite' product.id %}" class="btn btn-dark">
+                                <i class='bx bx-like' ></i>
+                            </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h3>По вашему запросу ничего не найдено =(</h3>
+        {% endif %}
+        </div>
+        <br>
+        <br>
+    </div>
+{% endblock %}
+
